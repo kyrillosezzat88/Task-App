@@ -1,0 +1,43 @@
+.TaskCard{
+    @apply shadow-lg p-4 px-4 rounded-md;
+    &_Head{
+        @apply flex justify-between items-center  pb-2 mb-2;
+        &_Title{
+            @apply text-2xl font-bold;
+        }
+        &_status{
+            @apply flex capitalize;
+            &_done , &_low{
+                @apply mr-2 bg-green px-4 py-1 rounded-full;
+            }
+            &_heigh{
+                @apply bg-secondary text-white px-4 py-1  rounded-full;
+            }
+            &_medium{
+                @apply bg-orange  px-4 py-1  rounded-full;
+            }
+            &_todo{
+                @apply bg-secondary bg-opacity-30 px-4 py-1  rounded-full mr-2
+            }
+        }
+    }
+
+    &_Date{
+        @apply text-right text-grey_dark text-sm  border-b border-grey_light py-4;
+    }
+    &_Actions{
+        @apply flex justify-between items-center pt-4;
+        img{
+            @apply ml-3 cursor-pointer;
+        }
+    }
+    &_DueDate{
+        @apply text-center pt-2 mt-4 text-grey_dark border-t border-grey_light
+    }
+    &_Desc{
+        @apply h-[100px] overflow-hidden text-ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+}

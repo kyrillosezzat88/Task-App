@@ -1,0 +1,15 @@
+.btn{
+    @apply px-8 py-2 rounded-sm cursor-pointer  ;
+    &:disabled{
+        @apply bg-grey_dark hover:bg-grey_dark cursor-not-allowed;
+    }
+}
+.btn-primary{
+    @apply bg-primary text-white shadow-md transition-all;
+    &:hover{
+        @apply bg-secondary transition-all;
+    }
+}
+.btn-secondary{
+    @apply bg-secondary text-white shadow-md;
+}

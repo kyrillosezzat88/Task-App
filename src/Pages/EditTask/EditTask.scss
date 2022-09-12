@@ -1,0 +1,6 @@
+.EditTask{
+    @apply flex justify-center items-center flex-col py-10 container;
+    h2{
+        @apply text-2xl md:text-3xl font-bold border-b  pb-2 mb-10;
+    }
+}

@@ -1,0 +1,15 @@
+.FilterBar{
+    @apply flex items-center gap-4 my-6 flex-wrap lg:flex-nowrap ;
+    &_Search{
+        @apply w-full md:w-[50%] border p-2 px-4 rounded-md border-grey_light shadow-md;
+    }
+    select{
+        @apply w-full md:w-[10%] border border-grey_light p-2 rounded-md outline-none shadow-md
+    }
+    .DatePicker{
+        @apply border border-grey_light p-2 rounded-md shadow-md;
+    }
+    input{
+        @apply outline-none
+    }
+}

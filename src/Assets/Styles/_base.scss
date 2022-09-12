@@ -1,0 +1,7 @@
+@import './buttons';
+@import './input';
+
+// loading div
+.loading{
+    @apply w-full flex justify-center items-center h-[calc(100vh-80px)]
+}

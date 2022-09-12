@@ -1,0 +1,12 @@
+.Signup{
+    @apply flex justify-center items-center flex-col h-[calc(100vh-80px)] w-screen container;
+    .pageTitle{
+        @apply text-2xl md:text-3xl font-bold mb-4 uppercase;
+    }
+    .pageSubTitle{
+        @apply text-grey_dark mb-6 ;
+        &_links{
+            @apply text-primary underline cursor-pointer
+        }
+    }
+}
