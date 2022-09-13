@@ -3,7 +3,7 @@
     &_Head{
         @apply flex justify-between items-center  pb-2 mb-2;
         &_Title{
-            @apply text-2xl font-bold;
+            @apply text-lg md:text-2xl font-bold;
         }
         &_status{
             @apply flex capitalize;

@@ -1,7 +1,7 @@
-// get all user Tasks 
 
 import { DeleteTask, GetUserTasks, updateTask } from "./Actions-types"
 
+// get all user Tasks 
 export const GetAllUserTasks = (Tasks) => {
     return{
         type:GetUserTasks,

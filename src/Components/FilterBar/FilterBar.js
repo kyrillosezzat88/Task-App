@@ -3,12 +3,7 @@ import "./FilterBar.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import AddTask from "../AddTask/AddTask";
 import DatePicker from "react-datepicker";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Apis/Firebase-Config";
 import { useTask } from "../../Context/TaskContext";
 import { GetAllUserTasks } from "../../Context/Actions/Task-Actions";
@@ -23,6 +18,7 @@ export const FilterBar = () => {
   });
 
   const TasksCollections = collection(db, "tasks");
+  // to show add task form popup
   const HandleTaskPopup = (e) => {
     e.stopPropagation();
     setOpenTask(true);
@@ -33,13 +29,13 @@ export const FilterBar = () => {
     });
     return window.removeEventListener("click", () => setOpenTask(false));
   });
-
+  //default query to get all users tasks
+  let q = TaskApp.user.uid&&query(TasksCollections, where("userID", "==", TaskApp.user.uid));
   //Filter TAsks by search , priority , status , dueDate
   const FilterData = async (filterBy, filterValue) => {
     Filter[filterBy] = filterValue;
     setFilter({ ...Filter, [filterBy]: filterValue });
-    //default query to get all users tasks
-    let q = query(TasksCollections, where("userID", "==", TaskApp.user.uid));
+
     // query to get user tasks filtrated by priority
     if (!Filter.status.length && Filter.priority.length) {
       q = query(
@@ -55,8 +51,8 @@ export const FilterBar = () => {
         where("userID", "==", TaskApp.user.uid),
         where("status", "==", Filter.status)
       );
-    } 
-        // query to filter user tasks by status and priority 
+    }
+    // query to filter user tasks by status and priority
     if (Filter.status.length && Filter.priority.length) {
       q = query(
         TasksCollections,
@@ -64,12 +60,14 @@ export const FilterBar = () => {
         where("status", "==", Filter.status),
         where("priority", "==", Filter.priority)
       );
-    } 
+    }
 
     let userTasks = await getDocs(q).then((res) => {
       if (Filter.search.length) {
         return res.docs
-          .filter((doc) => doc.data().title.toLowerCase().includes(Filter.search.toLowerCase()))
+          .filter((doc) =>
+            doc.data().title.toLowerCase().includes(Filter.search.toLowerCase())
+          )
           .map((doc) => ({ ...doc.data(), id: doc.id }));
       }
       return res.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -85,6 +83,19 @@ export const FilterBar = () => {
     }
     dispatch(GetAllUserTasks(userTasks));
   };
+  // clear search
+  const ResetFilter = async () => {
+    setFilter({
+      status: "",
+      priority: "",
+      search: "",
+      dueDate: null,
+    })
+    let userTasks = await getDocs(q).then((res) =>
+      res.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+    dispatch(GetAllUserTasks(userTasks));
+  };
   return (
     <>
       {openTask && <AddTask setOpenTask={setOpenTask} />}
@@ -94,13 +105,14 @@ export const FilterBar = () => {
           placeholder="Search"
           className="FilterBar_Search"
           onChange={(e) => FilterData("search", e.target.value)}
+          value={Filter.search}
         />
         <select
           name="priority"
           id="priority"
           onChange={(e) => FilterData("priority", e.target.value)}
         >
-          <option value="priority" selected disabled hidden>
+          <option value="priority" selected={Filter.priority ? false : true} disabled hidden>
             Priority
           </option>
           <option value="heigh">Heigh</option>
@@ -112,7 +124,7 @@ export const FilterBar = () => {
           id="Status"
           onChange={(e) => FilterData("status", e.target.value)}
         >
-          <option value="Status" selected disabled hidden>
+          <option value="Status" selected={Filter.status ? false : true}  disabled hidden>
             Status
           </option>
           <option value="done">Done</option>
@@ -128,6 +140,7 @@ export const FilterBar = () => {
             }}
           />
         </div>
+        <button className="btn btn-secondary" onClick={ResetFilter}>Clear</button>
         <button className="btn btn-primary" onClick={HandleTaskPopup}>
           Add Task
         </button>
