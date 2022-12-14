@@ -32,7 +32,7 @@ Task App is a simple app to manange tasks its built in React and Firebase
 - [React-toastify](https://www.npmjs.com/package/react-toastify)
 
 ## Folder Structure 
-
+```bash
 └── Taskapp/
     ├── build
     ├── public
@@ -62,7 +62,7 @@ Task App is a simple app to manange tasks its built in React and Firebase
         └── Routes/
             ├── PrivateRoute.js
             └── PublicRoute.js
-
+```
 ## Installation
 
 Taskapp requires [Node.js](https://nodejs.org/) to run.
