@@ -14,6 +14,7 @@ function Home() {
   const { TaskApp, dispatch } = useTask();
   useEffect(() => {
     if (!TaskApp.Tasks.length) {
+      //dispatch
       dispatch(loadData(true));
       (async () => {
         if (TaskApp.user.uid) {
