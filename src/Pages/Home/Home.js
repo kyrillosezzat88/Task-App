@@ -14,7 +14,8 @@ function Home() {
   const { TaskApp, dispatch } = useTask();
   useEffect(() => {
     if (!TaskApp.Tasks.length) {
-      dispatch(loadData(true))(async () => {
+      dispatch(loadData(true));
+      (async () => {
         if (TaskApp.user.uid) {
           let q = query(
             TasksCollection,
